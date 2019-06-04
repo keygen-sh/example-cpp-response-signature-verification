@@ -11,6 +11,22 @@
 
 using namespace std;
 
+// Convert char array to a hex string
+constexpr char hexmap[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+
+string hex_str(unsigned char *data, int len)
+{
+  string s(len * 2, ' ');
+
+  for (int i = 0; i < len; i++)
+  {
+    s[2 * i] = hexmap[(data[i] & 0xF0) >> 4];
+    s[2 * i + 1] = hexmap[data[i] & 0x0F];
+  }
+
+  return s;
+}
+
 // Add ANSII color codes to string
 string ansii_color_str(const string str, const int color_code)
 {
@@ -64,6 +80,10 @@ bool verify_request_signature(RSA* rsa, const string body, const string sig)
   // Hash request body using SHA256
   unsigned char body_digest[SHA256_DIGEST_LENGTH];
   SHA256(body_buf, body_len, body_digest);
+
+  cout << ansii_color_str("[DIGEST]", 33) << " "
+       << hex_str(body_digest, SHA256_DIGEST_LENGTH)
+       << endl;
 
   // Verify the request body's signature
   int res = RSA_verify(
