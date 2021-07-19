@@ -1,8 +1,11 @@
-# Example C++ Request Signature Verification
+# Example C++ Response Signature Verification
 
-This is an example of cryptographically verifying [request signatures](https://keygen.sh/docs/api/#request-signatures)
+This is an example of cryptographically verifying Keygen's legacy `X-Signature` response signature header
 using your Keygen account's public key. You can find your public key within
-[your account's settings page](https://app.keygen.sh/settings).
+[your account's settings page](https://app.keygen.sh/settings). We recommend
+using [our new `Keygen-Signature` header](https://keygen.sh/docs/api/#response-signatures),
+which better prevents replay attacks among other attack vectors. We will try
+to update this example repository for the new format soon.
 
 ## Running the example
 
@@ -38,11 +41,11 @@ g++ main.cpp -o bin.out \
 
 Then run the script, passing in the `body` and `signature` as arguments:
 ```bash
-./bin.out '{JSON_REQUEST_BODY}' '{REQUEST_SIGNATURE}'
+./bin.out '{JSON_RESPONSE_BODY}' '{LEGACY_RESPONSE_SIGNATURE}'
 ```
 
-The request body's signature will be verified using RSA-SHA256 with PKCS1 v1.5
-padding. Be sure to copy your public key and other arguments correctly - the request
+The response body's signature will be verified using RSA-SHA256 with PKCS1 v1.5
+padding. Be sure to copy your public key and other arguments correctly - the response
 signature will fail validation if these are copied or included incorrectly. You can
 find your public key in [your account's settings](https://app.keygen.sh/settings).
 
