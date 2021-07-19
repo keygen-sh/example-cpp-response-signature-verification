@@ -1,7 +1,7 @@
 # Example C++ Response Signature Verification
 
 This is an example of cryptographically verifying Keygen's legacy `X-Signature` response signature header
-using your Keygen account's public key. You can find your public key within
+using your Keygen account's RSA public key. You can find your public key within
 [your account's settings page](https://app.keygen.sh/settings). We recommend
 using [our new `Keygen-Signature` header](https://keygen.sh/docs/api/#response-signatures),
 which better prevents replay attacks among other attack vectors. We will try
